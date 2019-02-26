@@ -1,2 +1,2 @@
-# daily-journal
-A small app to help me keep track of the days.
+## Daily Journal
+A journaling app to help me keep track of the days.
