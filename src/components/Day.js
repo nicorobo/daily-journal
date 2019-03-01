@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
-import { Item } from './Item';
+import Item from './Item';
 
 export class Day extends Component {
 	render() {
-		const { date, items } = this.props.day;
+		const { day, changeActiveDate } = this.props;
 		return (
 			<div className="day">
-				<div className="day-name">{dayjs(date).format('MMMM D, YYYY')}</div>
+				<div className="day-name" onClick={() => changeActiveDate(day.date)}>{dayjs(day.date).format('MMMM D, YYYY')}</div>
 				<div className="day-items">
-					{items.map(i => <Item item={i} />)}
+					{day.items.map(i => <Item key={i.id} item={i} />)}
 				</div>
 			</div>
 		);

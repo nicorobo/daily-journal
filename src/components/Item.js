@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deleteItem } from '../actions';
 
-export class Item extends Component {
+class Item extends Component {
 	render() {
 		const { content, created } = this.props.item;
 		return (
@@ -8,3 +10,5 @@ export class Item extends Component {
 		);
 	}
 }
+
+export default connect(null, { deleteItem })(Item);
