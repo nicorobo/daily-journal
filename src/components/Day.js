@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import { Droppable } from 'react-beautiful-dnd';
 import Item from './Item';
 
 const StyledDay = styled.div`
@@ -26,9 +27,17 @@ export class Day extends Component {
 				<DayName onClick={() => changeActiveDate(day.date)}>
 					{dayjs(day.date).format('MMMM D, YYYY')}
 				</DayName>
-				<DayItems>
-					{day.items.map(i => <Item key={i.id} item={i} />)}
-				</DayItems>
+				<Droppable droppableId={day.date}>
+					{(provided, snapshot) => (
+						<DayItems
+							ref={provided.innerRef} 
+							{...provided.droppableProps}
+						>
+							{day.items.map((item, i) => <Item key={item.id} index={i} item={item} />)}
+							{provided.placeholder}
+						</DayItems>
+					)}
+				</Droppable>
 			</StyledDay>
 		);
 	}

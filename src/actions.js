@@ -1,7 +1,13 @@
-import { ADD_ITEM, DELETE_ITEM, ADD_DAY, CHANGE_ACTIVE_DATE} from './actionTypes';
+import { 
+	ADD_ITEM,
+	DELETE_ITEM,
+	MOVE_ITEM,
+	ADD_DAY,
+	CHANGE_ACTIVE_DATE,
+} from './actionTypes';
 import dayjs from 'dayjs';
 
-let nextItemId = 10;
+let nextItemId = 20;
 
 export const addItem = (content, date = dayjs().format('YYYY-MM-DD')) => {
 	return (dispatch, getState) => {
@@ -42,4 +48,9 @@ export const changeActiveDate = (date = dayjs().format('YYYY-MM-DD')) => ({
 	data: {
 		date
 	}
+});
+
+export const moveItem = (destination, source) => ({
+	type: MOVE_ITEM,
+	data: { destination, source }
 });

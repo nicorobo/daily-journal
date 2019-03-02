@@ -14,15 +14,18 @@ const initialState = {
 	  5: {id: 5, content: 'Climbed and did yoga at ABP', created: 15512155747678},
 	  6: {id: 6, content: 'Ran and worked out', created: 1551215574762},
 	  7: {id: 7, content: 'Put music stuff on craigslist', created: 15512155747678},
+	  8: {id: 8, content: 'Chia seed bowl and soup at Central Market', created: 15512155747678},
+	  9: {id: 9, content: 'Did Ashtanga yoga at ABP', created: 1551215574762},
+	  10: {id: 10, content: 'Ate a Grove Winebar', created: 15512155747678},
 	},
 	days: [
 	  {
 	    date: '2019-02-21',
-	    items: [2, 6]
+	    items: [8, 9]
 	  },
 	  {
 	    date: '2019-02-22',
-	    items: [5, 6, 7]
+	    items: [5, 6, 7, 10]
 	  },
 	  {
 	    date: '2019-02-25',
