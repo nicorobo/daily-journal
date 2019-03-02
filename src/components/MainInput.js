@@ -1,6 +1,47 @@
 import React, { Component } from 'react';
+import dayjs from 'dayjs';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { addItem } from '../actions';
+import { addItem, changeActiveDate } from '../actions';
+
+
+const Container = styled.div`
+`;
+
+const Input = styled.input`
+	width: 80vw;
+	max-width: 25rem;
+	height: 2rem;
+	border-radius: 5px;
+	outline: none;
+	padding: .2rem 1rem;
+	font-size: 1rem;
+	border: 1px solid #bbb;
+	&:focus {
+		border: 1px solid cornflowerblue;
+	}
+`;
+
+const ActiveDate = styled.div`
+	color: #333;
+	font-weight: bold;
+	font-size: .75rem;
+	flex-grow: 1;
+`;
+
+const Thin = styled.span`
+	color: #bbb;
+	font-weight: 300;
+`;
+
+const InputFooter = styled.div`
+	display: flex;
+	margin-top: .5rem;
+`;
+
+const Today = styled.button`
+	
+`
 
 class MainInput extends Component {
 	state = {
@@ -15,18 +56,24 @@ class MainInput extends Component {
 		this.setState({value: ''});
 	}
 	render() {
+		const { activeDate, changeActiveDate } = this.props;
 		return (
-			<div className="main-input-container">
+			<Container>
 				<form className="main-input" onSubmit={this.onSubmit}>
-					<input
+					<Input
 						type="text"
-						placeholder={"What did you do today?"}
+						placeholder={`What did you do ${dayjs(activeDate).isSame(dayjs(), 'day') ? 'today' : dayjs(activeDate).format('MMMM D')}?`}
 						onChange={this.onChange}
 						value={this.state.value}
 						autoFocus={true} />
 				</form>
-				<div className="active-date">Selected date: {this.props.activeDate}</div>
-			</div>
+				<InputFooter>
+					<ActiveDate>
+						Date: <Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
+					</ActiveDate>
+					<Today onClick={() => changeActiveDate(dayjs().format('YYYY-MM-DD'))}>Today</Today>
+				</InputFooter>
+			</Container>
 			
 		);
 	}
@@ -34,6 +81,6 @@ class MainInput extends Component {
 
 const mapState = state => ({activeDate: state.activeDate});
 
-export default connect(mapState, { addItem })(MainInput);
+export default connect(mapState, { addItem, changeActiveDate })(MainInput);
 
 
