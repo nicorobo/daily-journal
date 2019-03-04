@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { ADD_DAY, ADD_ITEM, MOVE_ITEM } from '../actionTypes';
+import { ADD_DAY, ADD_ITEM, DELETE_ITEM, MOVE_ITEM } from '../actionTypes';
 
 export default function days(state = [], action) {
 	switch (action.type) {
@@ -22,6 +22,14 @@ export default function days(state = [], action) {
 				}
 				return {...day, items: [...day.items, action.data.item.id]};
 			});
+
+		case DELETE_ITEM:
+			const { id, date } = action.data;
+			console.log(id, date)
+			return state.map(d => {
+				if (d.date === date) return {...d, items: d.items.filter(i => i !== id)};
+				return d;
+			})
 
 		case MOVE_ITEM:
 			const { destination, source } = action.data;

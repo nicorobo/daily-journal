@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import { connect } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
-import Item from './Item';
+import { Item } from './Item';
+import { deleteItem } from '../actions';
 
 const StyledDay = styled.div`
 	margin-bottom: .5rem;
@@ -19,9 +21,10 @@ const DayItems = styled.div`
 	margin: .25rem 0 0 2rem;
 `;
 
-export class Day extends Component {
+class Day extends Component {
 	render() {
 		const { day, changeActiveDate } = this.props;
+		if (day.items.length === 0) return false;
 		return (
 			<StyledDay>
 				<DayName onClick={() => changeActiveDate(day.date)}>
@@ -33,7 +36,11 @@ export class Day extends Component {
 							ref={provided.innerRef} 
 							{...provided.droppableProps}
 						>
-							{day.items.map((item, i) => <Item key={item.id} index={i} item={item} />)}
+							{day.items.map((item, i) => <Item
+								key={item.id}
+								deleteItem={() => this.props.deleteItem(item.id, day.date)}
+								index={i}
+								item={item}/>)}
 							{provided.placeholder}
 						</DayItems>
 					)}
@@ -42,3 +49,5 @@ export class Day extends Component {
 		);
 	}
 }
+
+export default connect(null, { deleteItem })(Day);

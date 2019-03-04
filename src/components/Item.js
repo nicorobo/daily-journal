@@ -1,30 +1,40 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import { deleteItem } from '../actions';
 
 const Container = styled.div`
-
+	display: flex;
+	font-size: 0.9rem;
+	margin-top: .25rem;
+	color: #333;
+	.spacer {
+		flex-grow: 1;
+	}
+	.item-delete {
+		display: none;
+	}
+	&:hover .item-delete {
+		display: block;
+	}
 `;
 
-class Item extends Component {
+export class Item extends Component {
 	render() {
 		const { id, content, created } = this.props.item;
 		return (
-			<Draggable draggableId={id.toString()} index={this.props.index}>
-				{(provided, snapshot) => (
+			<Draggable draggableId={id} index={this.props.index}>
+				{(provided, snapshot) => {
+					return (
 					<Container 
 						ref={provided.innerRef}
 						{...provided.draggableProps}
-						{...provided.dragHandleProps}
 					>
-						{content}
+						<div className="item-content" {...provided.dragHandleProps}>{content}</div>
+						<div className="spacer"></div>
+						<button className="item-delete" onClick={this.props.deleteItem}>delete</button>
 					</Container>
-				)}
+				)}}
 			</Draggable>
 		);
 	}
 }
-
-export default connect(null, { deleteItem })(Item);

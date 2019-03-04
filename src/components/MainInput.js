@@ -6,6 +6,7 @@ import { addItem, changeActiveDate } from '../actions';
 
 
 const Container = styled.div`
+	margin-bottom: 2rem;
 `;
 
 const Input = styled.input`

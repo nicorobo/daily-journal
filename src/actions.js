@@ -6,8 +6,7 @@ import {
 	CHANGE_ACTIVE_DATE,
 } from './actionTypes';
 import dayjs from 'dayjs';
-
-let nextItemId = 20;
+import uniqid from 'uniqid';
 
 export const addItem = (content, date = dayjs().format('YYYY-MM-DD')) => {
 	return (dispatch, getState) => {
@@ -19,7 +18,7 @@ export const addItem = (content, date = dayjs().format('YYYY-MM-DD')) => {
 			data: {
 				date,
 				item: {
-					id: nextItemId++,
+					id: uniqid(),
 					content,
 					created: Date.now(),
 				}
@@ -28,10 +27,11 @@ export const addItem = (content, date = dayjs().format('YYYY-MM-DD')) => {
 	}
 };
 
-export const deleteItem = id => ({
+export const deleteItem = (id, date) => ({
 	type: DELETE_ITEM,
 	data: {
 		id,
+		date
 	}
 });
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import dayjs from 'dayjs';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
-import store from '../store';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { moveItem } from '../actions';
 import List from './List';
 import MainInput from './MainInput';
 
@@ -14,16 +14,20 @@ const Container = styled.div`
 `;
 
 class App extends Component { 
+	onDragEnd = ({destination, source, draggableId}) => {
+		if(!destination) return false;
+		this.props.moveItem(source, destination);
+	}
 	render() {
 		return (
-			<Provider store={store}>
+			<DragDropContext onDragEnd={this.onDragEnd}>
 				<Container>
 					<List />
 					<MainInput />
 				</Container>
-			</Provider>
+			</DragDropContext>
 		);
 	}
 }
 
-export default App;
+export default connect(null, { moveItem })(App);
