@@ -25,7 +25,6 @@ export default function days(state = [], action) {
 
 		case DELETE_ITEM:
 			const { id, date } = action.data;
-			console.log(id, date)
 			return state.map(d => {
 				if (d.date === date) return {...d, items: d.items.filter(i => i !== id)};
 				return d;

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { addItem, changeActiveDate } from '../actions';
 
 
 const Container = styled.div`
@@ -44,7 +42,7 @@ const Today = styled.button`
 	
 `
 
-class MainInput extends Component {
+export class MainInput extends Component {
 	state = {
 		value: '',
 	}
@@ -79,9 +77,5 @@ class MainInput extends Component {
 		);
 	}
 };
-
-const mapState = state => ({activeDate: state.activeDate});
-
-export default connect(mapState, { addItem, changeActiveDate })(MainInput);
 
 

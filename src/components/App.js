@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import dayjs from 'dayjs';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { moveItem } from '../actions';
-import List from './List';
-import MainInput from './MainInput';
+import { addItem, moveItem, changeActiveDate } from '../actions';
+import { List } from './List';
+import { MainInput } from './MainInput';
+import { Calendar } from './Calendar';
 
 const Container = styled.div`
 	display: flex;
@@ -22,12 +24,24 @@ class App extends Component {
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
 				<Container>
-					<List />
-					<MainInput />
+					<List
+						days={this.props.days}
+						items={this.props.items}
+						changeActiveDate={this.props.changeActiveDate} />
+					<MainInput
+						addItem={this.props.addItem}
+						activeDate={this.props.activeDate}
+						changeActiveDate={this.props.changeActiveDate} />
+					<Calendar
+						days={this.props.days}
+						activeDate={this.props.activeDate}
+						changeActiveDate={this.props.changeActiveDate} />
 				</Container>
 			</DragDropContext>
 		);
 	}
 }
 
-export default connect(null, { moveItem })(App);
+const mapState = state => ({days: state.days, items: state.items, activeDate: state.activeDate});
+
+export default connect(mapState, { changeActiveDate, addItem, moveItem })(App);

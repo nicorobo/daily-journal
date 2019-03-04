@@ -11,9 +11,10 @@ const StyledDay = styled.div`
 `;
 
 const DayName = styled.div`
-	color: #BA4141;
+	display: inline;
+	color: #4b5392;
 	font-weight: bold;
-	font-size: .8rem;
+	font-size: .7rem;
 	cursor: pointer;
 `;
 

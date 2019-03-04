@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { changeActiveDate } from '../actions';
 import Day from './Day';
 
 const StyledList = styled.div`
@@ -10,7 +8,7 @@ const StyledList = styled.div`
 	flex-grow: 1;
 `;
 
-class List extends Component {
+export class List extends Component {
 	render() {
 		const { days, items, changeActiveDate } = this.props;
 		return (
@@ -25,7 +23,3 @@ class List extends Component {
 		);
 	}
 }
-
-const mapState = state => ({days: state.days, items: state.items});
-
-export default connect(mapState, { changeActiveDate })(List);
