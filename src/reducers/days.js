@@ -6,7 +6,7 @@ export default function days(state = [], action) {
 		case ADD_DAY:
 			// Place day in appropriate spot
 			let i = state.length;
-			while (dayjs(state[i - 1].date).isAfter(dayjs(action.data.date))) { // Will this break if the day is the last day?
+			while (i > 0 && dayjs(state[i - 1].date).isAfter(dayjs(action.data.date))) { // Will this break if the day is the last day?
 				i--;
 			}
 			if (state[i] && dayjs(state[i].date).isSame(dayjs(action.data.date), 'day')) {

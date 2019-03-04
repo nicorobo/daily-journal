@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import CalendarHeatmap from 'react-calendar-heatmap';
+import ReactTooltip from 'react-tooltip';
 import 'react-calendar-heatmap/dist/styles.css';
 
 const CalendarContainer = styled.div`
@@ -54,7 +55,9 @@ export const Calendar = ({days, activeDate, changeActiveDate}) => {
 				endDate={end.format('YYYY-MM-DD')}
 				onClick={({date}) => changeActiveDate(date)}
 				classForValue={getClassForValue}
+				tooltipDataAttrs={value => ({'data-tip': dayjs(value.date).format('MMMM D, YYYY')})}
 				values={year} />
+			<ReactTooltip />
 		</CalendarContainer>
 	);
 }
