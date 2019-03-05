@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
-
 
 const Container = styled.div`
 	margin: 1rem 0 1rem 0;
@@ -42,40 +41,32 @@ const Today = styled.button`
 	padding: .2rem 1rem;
 `
 
-export class MainInput extends Component {
-	state = {
-		value: '',
+export const MainInput = ({ addItem, activeDate, changeActiveDate }) => {
+	const [value, setValue] = useState('');
+	const onChange = e => {
+		setValue(e.target.value);
 	}
-	onChange = e => {
-		this.setState({value: e.target.value})
-	}
-	onSubmit = e => {
+	const onSubmit = e => {
 		e.preventDefault();
-		this.props.addItem(this.state.value, this.props.activeDate);
-		this.setState({value: ''});
+		addItem(value, activeDate);
+		setValue('');
 	}
-	render() {
-		const { activeDate, changeActiveDate } = this.props;
-		return (
-			<Container>
-				<form className="main-input" onSubmit={this.onSubmit}>
-					<Input
-						type="text"
-						placeholder={`What did you do ${dayjs(activeDate).isSame(dayjs(), 'day') ? 'today' : dayjs(activeDate).format('MMMM D')}?`}
-						onChange={this.onChange}
-						value={this.state.value}
-						autoFocus={true} />
-				</form>
-				<InputFooter>
-					<ActiveDate>
-						Date: <Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
-					</ActiveDate>
-					<Today onClick={() => changeActiveDate(dayjs().format('YYYY-MM-DD'))}>Today</Today>
-				</InputFooter>
-			</Container>
-			
-		);
-	}
-};
-
-
+	return (
+		<Container>
+			<form className="main-input" onSubmit={onSubmit}>
+				<Input
+					type="text"
+					placeholder={`What did you do ${dayjs(activeDate).isSame(dayjs(), 'day') ? 'today' : dayjs(activeDate).format('MMMM D')}?`}
+					onChange={onChange}
+					value={value}
+					autoFocus={true} />
+			</form>
+			<InputFooter>
+				<ActiveDate>
+					Date: <Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
+				</ActiveDate>
+				<Today onClick={() => changeActiveDate(dayjs().format('YYYY-MM-DD'))}>Today</Today>
+			</InputFooter>
+		</Container>
+	);
+}
