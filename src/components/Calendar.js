@@ -6,8 +6,9 @@ import ReactTooltip from 'react-tooltip';
 import 'react-calendar-heatmap/dist/styles.css';
 
 const CalendarContainer = styled.div`
+	margin-bottom: 1rem;
 	width: 50vw;
-	min-width: 550px;
+	min-width: 640px;
 	.day-color-0 {
 		fill: #eee;
 	}

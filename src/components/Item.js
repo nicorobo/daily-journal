@@ -12,6 +12,8 @@ const Container = styled.div`
 	}
 	.item-delete {
 		display: none;
+		padding: .1rem .75rem;
+		cursor: pointer;
 	}
 	&:hover .item-delete {
 		display: block;
@@ -31,7 +33,7 @@ export class Item extends Component {
 					>
 						<div className="item-content" {...provided.dragHandleProps}>{content}</div>
 						<div className="spacer"></div>
-						<button className="item-delete" onClick={this.props.deleteItem}>delete</button>
+						<button className="item-delete" onClick={this.props.deleteItem}>Delete</button>
 					</Container>
 				)}}
 			</Draggable>

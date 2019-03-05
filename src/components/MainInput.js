@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 
 const Container = styled.div`
-	margin-bottom: 2rem;
+	margin: 1rem 0 1rem 0;
 `;
 
 const Input = styled.input`
 	width: 80vw;
 	max-width: 25rem;
-	height: 2rem;
+	height: 1.5rem;
 	border-radius: 5px;
 	outline: none;
 	padding: .2rem 1rem;
@@ -39,7 +39,7 @@ const InputFooter = styled.div`
 `;
 
 const Today = styled.button`
-	
+	padding: .2rem 1rem;
 `
 
 export class MainInput extends Component {

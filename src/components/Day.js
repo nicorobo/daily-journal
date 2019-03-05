@@ -13,9 +13,14 @@ const StyledDay = styled.div`
 const DayName = styled.div`
 	display: inline;
 	color: #4b5392;
-	font-weight: bold;
-	font-size: .7rem;
+	font-weight: ${props => props.active ? 'bold' : '400'};
+	font-size: .75rem;
 	cursor: pointer;
+`;
+
+const DayOfWeek = styled.span`
+	font-weight: 400;
+	color: #bbb;
 `;
 
 const DayItems = styled.div`
@@ -24,12 +29,12 @@ const DayItems = styled.div`
 
 class Day extends Component {
 	render() {
-		const { day, changeActiveDate } = this.props;
-		if (day.items.length === 0) return false;
+		const { day, activeDate, changeActiveDate } = this.props;
 		return (
 			<StyledDay>
-				<DayName onClick={() => changeActiveDate(day.date)}>
+				<DayName active={activeDate === day.date} onClick={() => changeActiveDate(day.date)}>
 					{dayjs(day.date).format('MMMM D, YYYY')}
+					<DayOfWeek> ({dayjs(day.date).format('dddd')})</DayOfWeek>
 				</DayName>
 				<Droppable droppableId={day.date}>
 					{(provided, snapshot) => (
@@ -51,4 +56,6 @@ class Day extends Component {
 	}
 }
 
-export default connect(null, { deleteItem })(Day);
+const mapState = (state) => ({activeDate: state.activeDate});
+
+export default connect(mapState, { deleteItem })(Day);
