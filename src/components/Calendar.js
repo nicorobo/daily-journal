@@ -23,18 +23,27 @@ const CalendarContainer = styled.div`
 	}
 `
 
+//Format dayjs object as 1994-05-26
+const format = d => d.format('YYYY-MM-DD');
+
+// In order for the calendar's onClick handler to return the date, its 'values'
+// prop must contain that date. We only store days that have (or have had) items
+// in them, so we create an array with empty day objects except where we already
+// have data for the day. Now you can change active date using the calendar, even
+// on days that don't currently have items.
 const getYear = (days, start, end) => {
-	const dayDictionary = days.reduce((dict, day) => ({...dict, [day.date]: day}), {});
+	const daysByDate = days.reduce((dict, day) => ({...dict, [day.date]: day}), {});
 	let counter = start;
-	const allDays = [];
+	const year = [];
 	while (counter.isBefore(end)) {
-		const date = counter.format('YYYY-MM-DD');
-		allDays.push(dayDictionary[date] || {date, items: []});
+		const date = format(counter);
+		year.push(daysByDate[date] || {date, items: []});
 		counter = counter.add(1, 'day');
 	};
-	const lastDate = end.format('YYYY-MM-DD');
-	allDays.push(dayDictionary[lastDate] || {lastDate, items: []});
-	return allDays;
+	// Adding the last day (could avoid by adding dayjs.isBeforeOrSame() plugin)
+	const date = format(end);
+	year.push(daysByDate[date] || {date, items: []});
+	return year;
 }
 
 const getClassForValue = (value) => {
@@ -52,8 +61,8 @@ export const Calendar = ({days, activeDate, changeActiveDate}) => {
 	return (
 		<CalendarContainer>
 			<CalendarHeatmap
-				startDate={start.format('YYYY-MM-DD')}
-				endDate={end.format('YYYY-MM-DD')}
+				startDate={format(start)}
+				endDate={format(end)}
 				onClick={({date}) => changeActiveDate(date)}
 				classForValue={getClassForValue}
 				tooltipDataAttrs={value => ({'data-tip': dayjs(value.date).format('MMMM D, YYYY')})}
