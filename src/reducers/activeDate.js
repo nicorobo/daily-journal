@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { CHANGE_ACTIVE_DATE } from '../actionTypes';
 
 export default function activeDate(state = '', action) {

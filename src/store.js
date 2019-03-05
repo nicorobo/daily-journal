@@ -4,8 +4,9 @@ import dayjs from 'dayjs';
 import reducers from './reducers';
 import { loadState, saveState } from './localStorage';
 
+const today = dayjs().format('YYYY-MM-DD')
 const initialState = {
-	activeDate: dayjs().format('YYYY-MM-DD'),
+	activeDate: today,
 	items: {
 	  '0': {id: '0', content: 'Ate lunch at Whole Foods', created: 1551215574767},
 	  '1': {id: '1', content: 'Bought shoes at Nordstrom Rack', created: 1551215574762},
@@ -41,13 +42,14 @@ const initialState = {
 
 const store =  createStore(
 	reducers,
-	(loadState() || initialState),
+	Object.assign((loadState() || initialState), {activeDate: today}),
 	compose(
 		applyMiddleware(thunk),
 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 	)
 );
 
+// Persist state with localStorage
 store.subscribe(() => {
 	saveState(store.getState());
 });

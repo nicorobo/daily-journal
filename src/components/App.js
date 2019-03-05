@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import dayjs from 'dayjs';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { addItem, moveItem, changeActiveDate } from '../actions';
 import { List } from './List';
