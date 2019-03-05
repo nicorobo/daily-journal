@@ -7,14 +7,14 @@ import { Item } from './Item';
 import { deleteItem } from '../actions';
 
 const StyledDay = styled.div`
-	margin-bottom: .5rem;
+	margin-bottom: 0.5rem;
 `;
 
 const DayName = styled.div`
 	display: inline;
 	color: #4b5392;
-	font-weight: ${props => props.active ? 'bold' : '400'};
-	font-size: .75rem;
+	font-weight: ${(props) => (props.active ? 'bold' : '400')};
+	font-size: 0.75rem;
 	cursor: pointer;
 `;
 
@@ -24,7 +24,7 @@ const DayOfWeek = styled.span`
 `;
 
 const DayItems = styled.div`
-	margin: .25rem 0 0 2rem;
+	margin: 0.25rem 0 0 2rem;
 `;
 
 class Day extends Component {
@@ -32,21 +32,27 @@ class Day extends Component {
 		const { day, activeDate, changeActiveDate } = this.props;
 		return (
 			<StyledDay>
-				<DayName active={activeDate === day.date} onClick={() => changeActiveDate(day.date)}>
+				<DayName
+					active={activeDate === day.date}
+					onClick={() => changeActiveDate(day.date)}>
 					{dayjs(day.date).format('MMMM D, YYYY')}
 					<DayOfWeek> ({dayjs(day.date).format('dddd')})</DayOfWeek>
 				</DayName>
 				<Droppable droppableId={day.date}>
 					{(provided, snapshot) => (
 						<DayItems
-							ref={provided.innerRef} 
-							{...provided.droppableProps}
-						>
-							{day.items.map((item, i) => <Item
-								key={item.id}
-								deleteItem={() => this.props.deleteItem(item.id, day.date)}
-								index={i}
-								item={item}/>)}
+							ref={provided.innerRef}
+							{...provided.droppableProps}>
+							{day.items.map((item, i) => (
+								<Item
+									key={item.id}
+									index={i}
+									item={item}
+									deleteItem={() =>
+										this.props.deleteItem(item.id, day.date)
+									}
+								/>
+							))}
 							{provided.placeholder}
 						</DayItems>
 					)}
@@ -56,6 +62,9 @@ class Day extends Component {
 	}
 }
 
-const mapState = (state) => ({activeDate: state.activeDate});
+const mapState = (state) => ({ activeDate: state.activeDate });
 
-export default connect(mapState, { deleteItem })(Day);
+export default connect(
+	mapState,
+	{ deleteItem }
+)(Day);

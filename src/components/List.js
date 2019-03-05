@@ -19,13 +19,13 @@ const Spacer = styled.div`
 export const List = ({ days, items, changeActiveDate }) => (
 	<StyledList>
 		<Spacer />
-		{days.map(d => {
-			if (d.items.length === 0) return false;
+		{days.map((day) => {
+			if (day.items.length === 0) return false;
 			return (
 				<Day
-					key={d.date}
+					key={day.date}
 					changeActiveDate={changeActiveDate}
-					day={{...d, items: d.items.map(i => items[i])}} 
+					day={{ ...day, items: day.items.map((i) => items[i]) }}
 				/>
 			);
 		})}

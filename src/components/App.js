@@ -14,11 +14,11 @@ const Container = styled.div`
 	align-items: center;
 `;
 
-class App extends Component { 
-	onDragEnd = ({destination, source, draggableId}) => {
-		if(!destination) return false;
+class App extends Component {
+	onDragEnd = ({ destination, source, draggableId }) => {
+		if (!destination) return false;
 		this.props.moveItem(source, destination);
-	}
+	};
 	render() {
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
@@ -26,21 +26,31 @@ class App extends Component {
 					<List
 						days={this.props.days}
 						items={this.props.items}
-						changeActiveDate={this.props.changeActiveDate} />
+						changeActiveDate={this.props.changeActiveDate}
+					/>
 					<MainInput
 						addItem={this.props.addItem}
 						activeDate={this.props.activeDate}
-						changeActiveDate={this.props.changeActiveDate} />
+						changeActiveDate={this.props.changeActiveDate}
+					/>
 					<Calendar
 						days={this.props.days}
 						activeDate={this.props.activeDate}
-						changeActiveDate={this.props.changeActiveDate} />
+						changeActiveDate={this.props.changeActiveDate}
+					/>
 				</Container>
 			</DragDropContext>
 		);
 	}
 }
 
-const mapState = state => ({days: state.days, items: state.items, activeDate: state.activeDate});
+const mapState = (state) => ({
+	days: state.days,
+	items: state.items,
+	activeDate: state.activeDate,
+});
 
-export default connect(mapState, { changeActiveDate, addItem, moveItem })(App);
+export default connect(
+	mapState,
+	{ changeActiveDate, addItem, moveItem }
+)(App);

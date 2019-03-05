@@ -8,13 +8,11 @@ export const loadState = () => {
 	} catch (err) {
 		return undefined;
 	}
-}
+};
 
 export const saveState = (state) => {
 	try {
 		const serializedState = JSON.stringify(state);
 		localStorage.setItem(key, serializedState);
-	} catch (err) {
-
-	}
-}
+	} catch (err) {}
+};

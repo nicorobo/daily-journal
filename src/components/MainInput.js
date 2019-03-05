@@ -12,7 +12,7 @@ const Input = styled.input`
 	height: 1.5rem;
 	border-radius: 5px;
 	outline: none;
-	padding: .2rem 1rem;
+	padding: 0.2rem 1rem;
 	font-size: 1rem;
 	border: 1px solid #bbb;
 	&:focus {
@@ -23,7 +23,7 @@ const Input = styled.input`
 const ActiveDate = styled.div`
 	color: #333;
 	font-weight: bold;
-	font-size: .75rem;
+	font-size: 0.75rem;
 	flex-grow: 1;
 `;
 
@@ -34,39 +34,50 @@ const Thin = styled.span`
 
 const InputFooter = styled.div`
 	display: flex;
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 `;
 
 const Today = styled.button`
-	padding: .2rem 1rem;
-`
+	padding: 0.2rem 1rem;
+`;
 
 export const MainInput = ({ addItem, activeDate, changeActiveDate }) => {
 	const [value, setValue] = useState('');
-	const onChange = e => {
+	const onChange = (e) => {
 		setValue(e.target.value);
-	}
-	const onSubmit = e => {
+	};
+	const onSubmit = (e) => {
 		e.preventDefault();
 		addItem(value, activeDate);
 		setValue('');
-	}
+	};
 	return (
 		<Container>
 			<form className="main-input" onSubmit={onSubmit}>
 				<Input
 					type="text"
-					placeholder={`What did you do ${dayjs(activeDate).isSame(dayjs(), 'day') ? 'today' : dayjs(activeDate).format('MMMM D')}?`}
+					placeholder={`What did you do ${
+						dayjs(activeDate).isSame(dayjs(), 'day')
+							? 'today'
+							: dayjs(activeDate).format('MMMM D')
+					}?`}
 					onChange={onChange}
 					value={value}
-					autoFocus={true} />
+					autoFocus={true}
+				/>
 			</form>
 			<InputFooter>
 				<ActiveDate>
-					Date: <Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
+					Date:{' '}
+					<Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
 				</ActiveDate>
-				<Today onClick={() => changeActiveDate(dayjs().format('YYYY-MM-DD'))}>Today</Today>
+				<Today
+					onClick={() =>
+						changeActiveDate(dayjs().format('YYYY-MM-DD'))
+					}>
+					Today
+				</Today>
 			</InputFooter>
 		</Container>
 	);
-}
+};

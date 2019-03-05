@@ -6,7 +6,12 @@ import store from './store';
 import './index.css';
 
 if (module.hot) {
-  module.hot.accept();
+	module.hot.accept();
 }
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root')
+);

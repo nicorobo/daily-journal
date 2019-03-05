@@ -21,10 +21,10 @@ const CalendarContainer = styled.div`
 	.day-color-3 {
 		fill: rgba(140, 198, 101, 1);
 	}
-`
+`;
 
 //Format dayjs object as 1994-05-26
-const format = d => d.format('YYYY-MM-DD');
+const format = (d) => d.format('YYYY-MM-DD');
 
 // In order for the calendar's onClick handler to return the date, its 'values'
 // prop must contain that date. We only store days that have (or have had) items
@@ -32,19 +32,22 @@ const format = d => d.format('YYYY-MM-DD');
 // have data for the day. Now you can change active date using the calendar, even
 // on days that don't currently have items.
 const getYear = (days, start, end) => {
-	const daysByDate = days.reduce((dict, day) => ({...dict, [day.date]: day}), {});
+	const daysByDate = days.reduce(
+		(dict, day) => ({ ...dict, [day.date]: day }),
+		{}
+	);
 	let counter = start;
 	const year = [];
 	while (counter.isBefore(end)) {
 		const date = format(counter);
-		year.push(daysByDate[date] || {date, items: []});
+		year.push(daysByDate[date] || { date, items: [] });
 		counter = counter.add(1, 'day');
-	};
+	}
 	// Adding the last day (could avoid by adding dayjs.isBeforeOrSame() plugin)
 	const date = format(end);
-	year.push(daysByDate[date] || {date, items: []});
+	year.push(daysByDate[date] || { date, items: [] });
 	return year;
-}
+};
 
 const getClassForValue = (value) => {
 	const items = (value && value.items) || [];
@@ -52,9 +55,9 @@ const getClassForValue = (value) => {
 	else if (items.length >= 5) return 'day-color-2';
 	else if (items.length > 0) return 'day-color-1';
 	return 'day-color-0';
-}
+};
 
-export const Calendar = ({days, activeDate, changeActiveDate}) => {
+export const Calendar = ({ days, activeDate, changeActiveDate }) => {
 	const start = dayjs().subtract(1, 'year');
 	const end = dayjs();
 	const year = getYear(days, start, end);
@@ -63,11 +66,14 @@ export const Calendar = ({days, activeDate, changeActiveDate}) => {
 			<CalendarHeatmap
 				startDate={format(start)}
 				endDate={format(end)}
-				onClick={({date}) => changeActiveDate(date)}
+				onClick={({ date }) => changeActiveDate(date)}
 				classForValue={getClassForValue}
-				tooltipDataAttrs={value => ({'data-tip': dayjs(value.date).format('MMMM D, YYYY')})}
-				values={year} />
+				tooltipDataAttrs={(value) => ({
+					'data-tip': dayjs(value.date).format('MMMM D, YYYY'),
+				})}
+				values={year}
+			/>
 			<ReactTooltip />
 		</CalendarContainer>
 	);
-}
+};
