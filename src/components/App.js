@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 class App extends Component {
-	onDragEnd = ({ destination, source, draggableId }) => {
+	onDragEnd = ({ destination, source }) => {
 		if (!destination) return false;
 		this.props.moveItem(source, destination);
 	};

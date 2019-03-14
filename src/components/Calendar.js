@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import ReactTooltip from 'react-tooltip';
+import { Link, Element, animateScroll as scroll, scroller } from 'react-scroll';
 import 'react-calendar-heatmap/dist/styles.css';
 
 const CalendarContainer = styled.div`
@@ -61,12 +62,17 @@ export const Calendar = ({ days, activeDate, changeActiveDate }) => {
 	const start = dayjs().subtract(1, 'year');
 	const end = dayjs();
 	const year = getYear(days, start, end);
+
+	const onClick = ({ date }) => {
+		changeActiveDate(date);
+		scroller.scrollTo(date);
+	};
 	return (
 		<CalendarContainer>
 			<CalendarHeatmap
 				startDate={format(start)}
 				endDate={format(end)}
-				onClick={({ date }) => changeActiveDate(date)}
+				onClick={onClick}
 				classForValue={getClassForValue}
 				tooltipDataAttrs={(value) => ({
 					'data-tip': dayjs(value.date).format('MMMM D, YYYY'),
