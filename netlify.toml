@@ -1,0 +1,4 @@
+[build]
+base = "/"
+build = "/build"
+command = "npm run build"
