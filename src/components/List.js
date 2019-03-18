@@ -17,7 +17,7 @@ const Spacer = styled.div`
 `;
 
 export const List = ({ days, items, changeActiveDate }) => (
-	<StyledList>
+	<StyledList id="day-list">
 		<Spacer />
 		{days.map((day) => {
 			if (day.items.length === 0) return false;
