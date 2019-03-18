@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { connect } from 'react-redux';
 import { Droppable } from 'react-beautiful-dnd';
-import { Link, animateScroll as scroll } from 'react-scroll';
 import { Item } from './Item';
 import { deleteItem } from '../actions';
 

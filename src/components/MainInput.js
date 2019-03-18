@@ -37,10 +37,6 @@ const InputFooter = styled.div`
 	margin-top: 0.5rem;
 `;
 
-const Today = styled.button`
-	padding: 0.2rem 1rem;
-`;
-
 export const MainInput = ({ addItem, activeDate, changeActiveDate }) => {
 	const [value, setValue] = useState('');
 	const onChange = (e) => {
@@ -71,12 +67,6 @@ export const MainInput = ({ addItem, activeDate, changeActiveDate }) => {
 					Date:{' '}
 					<Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
 				</ActiveDate>
-				<Today
-					onClick={() =>
-						changeActiveDate(dayjs().format('YYYY-MM-DD'))
-					}>
-					Today
-				</Today>
 			</InputFooter>
 		</Container>
 	);
