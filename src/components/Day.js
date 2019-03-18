@@ -29,26 +29,21 @@ const DayItems = styled.div`
 `;
 
 class Day extends Component {
+	handleClick = () => {
+		const { day, changeActiveDate, scrollTo } = this.props;
+		scrollTo(day.date);
+		changeActiveDate(day.date);
+	};
 	render() {
-		const { day, activeDate, changeActiveDate } = this.props;
+		const { day, activeDate } = this.props;
 		return (
 			<StyledDay id={day.date}>
-				<Link
-					to={day.date}
-					containerId="day-list"
-					smooth={true}
-					duration={300}
-					offset={-20}>
-					<DayName
-						active={activeDate === day.date}
-						onClick={() => changeActiveDate(day.date)}>
-						{dayjs(day.date).format('MMMM D, YYYY')}
-						<DayOfWeek>
-							{' '}
-							({dayjs(day.date).format('dddd')})
-						</DayOfWeek>
-					</DayName>
-				</Link>
+				<DayName
+					active={activeDate === day.date}
+					onClick={this.handleClick}>
+					{dayjs(day.date).format('MMMM D, YYYY')}
+					<DayOfWeek> ({dayjs(day.date).format('dddd')})</DayOfWeek>
+				</DayName>
 				<Droppable droppableId={day.date}>
 					{(provided, snapshot) => (
 						<DayItems
