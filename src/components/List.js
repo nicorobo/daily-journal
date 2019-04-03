@@ -16,8 +16,8 @@ const Spacer = styled.div`
 	flex-grow: 1;
 `;
 
-export const List = ({ days, items, changeActiveDate }) => (
-	<StyledList>
+export const List = ({ days, items, changeActiveDate, scrollTo }) => (
+	<StyledList id="day-list">
 		<Spacer />
 		{days.map((day) => {
 			if (day.items.length === 0) return false;
@@ -25,6 +25,7 @@ export const List = ({ days, items, changeActiveDate }) => (
 				<Day
 					key={day.date}
 					changeActiveDate={changeActiveDate}
+					scrollTo={scrollTo}
 					day={{ ...day, items: day.items.map((i) => items[i]) }}
 				/>
 			);

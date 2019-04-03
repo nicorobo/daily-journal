@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { scroller } from 'react-scroll';
 import { addItem, moveItem, changeActiveDate } from '../actions';
 import { List } from './List';
 import { MainInput } from './MainInput';
@@ -15,9 +16,18 @@ const Container = styled.div`
 `;
 
 class App extends Component {
-	onDragEnd = ({ destination, source, draggableId }) => {
+	onDragEnd = ({ destination, source }) => {
 		if (!destination) return false;
 		this.props.moveItem(source, destination);
+	};
+	scrollTo = (to) => {
+		console.log('scrolling to: ', to);
+		scroller.scrollTo(to, {
+			duration: 400,
+			smooth: true,
+			containerId: 'day-list',
+			offset: -20,
+		});
 	};
 	render() {
 		return (
@@ -27,6 +37,7 @@ class App extends Component {
 						days={this.props.days}
 						items={this.props.items}
 						changeActiveDate={this.props.changeActiveDate}
+						scrollTo={this.scrollTo}
 					/>
 					<MainInput
 						addItem={this.props.addItem}
@@ -37,6 +48,7 @@ class App extends Component {
 						days={this.props.days}
 						activeDate={this.props.activeDate}
 						changeActiveDate={this.props.changeActiveDate}
+						scrollTo={this.scrollTo}
 					/>
 				</Container>
 			</DragDropContext>

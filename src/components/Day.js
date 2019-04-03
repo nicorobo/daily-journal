@@ -28,13 +28,18 @@ const DayItems = styled.div`
 `;
 
 class Day extends Component {
+	handleClick = () => {
+		const { day, changeActiveDate, scrollTo } = this.props;
+		scrollTo(day.date);
+		changeActiveDate(day.date);
+	};
 	render() {
-		const { day, activeDate, changeActiveDate } = this.props;
+		const { day, activeDate } = this.props;
 		return (
-			<StyledDay>
+			<StyledDay id={day.date}>
 				<DayName
 					active={activeDate === day.date}
-					onClick={() => changeActiveDate(day.date)}>
+					onClick={this.handleClick}>
 					{dayjs(day.date).format('MMMM D, YYYY')}
 					<DayOfWeek> ({dayjs(day.date).format('dddd')})</DayOfWeek>
 				</DayName>
