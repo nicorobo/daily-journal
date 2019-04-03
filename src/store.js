@@ -9,12 +9,11 @@ const store = createStore(
 	Object.assign(loadState() || initialState, {
 		activeDate: initialState.activeDate,
 	}),
-	compose(
-		applyMiddleware(thunk),
-		window.__REDUX_DEVTOOLS_EXTENSION__ &&
-			window.__REDUX_DEVTOOLS_EXTENSION__()
-	)
+	compose(applyMiddleware(thunk))
 );
+
+// Add to compose when you want hot reloading
+// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 
 // Persist state with localStorage
 store.subscribe(() => {
