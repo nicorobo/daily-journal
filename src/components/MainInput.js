@@ -37,7 +37,7 @@ const InputFooter = styled.div`
 	margin-top: 0.5rem;
 `;
 
-export const MainInput = ({ addItem, activeDate, changeActiveDate }) => {
+export const MainInput = ({ addItem, activeDate, changeActiveDate, scrollTo }) => {
 	const [value, setValue] = useState('');
 	const onChange = (e) => {
 		setValue(e.target.value);
@@ -45,6 +45,7 @@ export const MainInput = ({ addItem, activeDate, changeActiveDate }) => {
 	const onSubmit = (e) => {
 		e.preventDefault();
 		addItem(value, activeDate);
+		scrollTo(activeDate, true);
 		setValue('');
 	};
 	return (
@@ -64,8 +65,7 @@ export const MainInput = ({ addItem, activeDate, changeActiveDate }) => {
 			</form>
 			<InputFooter>
 				<ActiveDate>
-					Date:{' '}
-					<Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
+					Date: <Thin>{dayjs(activeDate).format('MMMM D, YYYY')}</Thin>
 				</ActiveDate>
 			</InputFooter>
 		</Container>

@@ -20,13 +20,14 @@ class App extends Component {
 		if (!destination) return false;
 		this.props.moveItem(source, destination);
 	};
-	scrollTo = (to) => {
-		console.log('scrolling to: ', to);
+	scrollTo = (to, toBottom) => {
+		const dayHeight = document.getElementById(to).clientHeight;
+		const containerHeight = document.getElementById('day-list').clientHeight;
 		scroller.scrollTo(to, {
 			duration: 400,
 			smooth: true,
 			containerId: 'day-list',
-			offset: -20,
+			offset: toBottom ? Math.max(dayHeight - containerHeight + 10, -20) : -20,
 		});
 	};
 	render() {
@@ -43,6 +44,7 @@ class App extends Component {
 						addItem={this.props.addItem}
 						activeDate={this.props.activeDate}
 						changeActiveDate={this.props.changeActiveDate}
+						scrollTo={this.scrollTo}
 					/>
 					<Calendar
 						days={this.props.days}

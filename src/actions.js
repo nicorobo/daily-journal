@@ -1,10 +1,4 @@
-import {
-	ADD_ITEM,
-	DELETE_ITEM,
-	MOVE_ITEM,
-	ADD_DAY,
-	CHANGE_ACTIVE_DATE,
-} from './actionTypes';
+import { ADD_ITEM, DELETE_ITEM, MOVE_ITEM, ADD_DAY, CHANGE_ACTIVE_DATE } from './actionTypes';
 import dayjs from 'dayjs';
 import uniqid from 'uniqid';
 

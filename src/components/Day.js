@@ -37,25 +37,19 @@ class Day extends Component {
 		const { day, activeDate } = this.props;
 		return (
 			<StyledDay id={day.date}>
-				<DayName
-					active={activeDate === day.date}
-					onClick={this.handleClick}>
+				<DayName active={activeDate === day.date} onClick={this.handleClick}>
 					{dayjs(day.date).format('MMMM D, YYYY')}
 					<DayOfWeek> ({dayjs(day.date).format('dddd')})</DayOfWeek>
 				</DayName>
 				<Droppable droppableId={day.date}>
 					{(provided, snapshot) => (
-						<DayItems
-							ref={provided.innerRef}
-							{...provided.droppableProps}>
+						<DayItems ref={provided.innerRef} {...provided.droppableProps}>
 							{day.items.map((item, i) => (
 								<Item
 									key={item.id}
 									index={i}
 									item={item}
-									deleteItem={() =>
-										this.props.deleteItem(item.id, day.date)
-									}
+									deleteItem={() => this.props.deleteItem(item.id, day.date)}
 								/>
 							))}
 							{provided.placeholder}

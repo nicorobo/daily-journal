@@ -32,10 +32,7 @@ const format = (d) => d.format('YYYY-MM-DD');
 // have data for the day. Now you can change active date using the calendar, even
 // on days that don't currently have items.
 const getYear = (days, start, end) => {
-	const daysByDate = days.reduce(
-		(dict, day) => ({ ...dict, [day.date]: day }),
-		{}
-	);
+	const daysByDate = days.reduce((dict, day) => ({ ...dict, [day.date]: day }), {});
 	let counter = start;
 	const year = [];
 	while (counter.isBefore(end)) {
