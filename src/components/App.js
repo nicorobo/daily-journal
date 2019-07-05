@@ -40,12 +40,18 @@ class App extends Component {
 		});
 	};
 	render() {
-		console.log(this.props.days);
+		const newDays = this.props.days.map((d) => ({
+			...d,
+			items: d.items.filter((i) =>
+				this.props.items[i].content.includes(this.props.searchText)
+			),
+		}));
+		console.log(newDays);
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
 				<Container>
 					<List
-						days={this.props.days}
+						days={newDays}
 						items={this.props.items}
 						changeActiveDate={this.props.changeActiveDate}
 						scrollTo={this.scrollTo}
