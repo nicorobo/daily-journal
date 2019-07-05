@@ -7,13 +7,17 @@ const Container = styled.div`
 	margin-top: 0.25rem;
 	font-size: 0.9rem;
 	color: #333;
+	.item-content {
+		word-break: break-all;
+	}
 	.item-delete {
-		display: none;
+		visibility: hidden;
 		padding: 0.1rem 0.75rem;
 		cursor: pointer;
+		height: 19px;
 	}
 	&:hover .item-delete {
-		display: block;
+		visibility: visible;
 	}
 `;
 
