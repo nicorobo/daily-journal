@@ -21,7 +21,15 @@ class App extends Component {
 		this.props.moveItem(source, destination);
 	};
 	scrollTo = (to, toBottom) => {
-		const dayHeight = document.getElementById(to).clientHeight;
+		const dayElement = document.getElementById(to);
+		if (!dayElement) {
+			if (toBottom) {
+				window.setTimeout(() => {
+					this.scrollTo(to, true);
+				}, 50); // Day hasn't been created yet but will be added to DOM in next cycle
+			} else return false; // Do not scroll to a day that doesn't exist
+		}
+		const dayHeight = dayElement.clientHeight;
 		const containerHeight = document.getElementById('day-list').clientHeight;
 		scroller.scrollTo(to, {
 			duration: 400,
