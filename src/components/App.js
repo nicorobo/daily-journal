@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { scroller } from 'react-scroll';
-import { addItem, moveItem, changeActiveDate } from '../actions';
+import { addItem, moveItem, changeActiveDate, changeInputMode, changeSearchText } from '../actions';
 import { List } from './List';
-import { MainInput } from './MainInput';
+import { JournalInput } from './JournalInput';
+import { SearchInput } from './SearchInput';
 import { Calendar } from './Calendar';
 
 const Container = styled.div`
@@ -39,6 +40,7 @@ class App extends Component {
 		});
 	};
 	render() {
+		console.log(this.props.days);
 		return (
 			<DragDropContext onDragEnd={this.onDragEnd}>
 				<Container>
@@ -48,12 +50,22 @@ class App extends Component {
 						changeActiveDate={this.props.changeActiveDate}
 						scrollTo={this.scrollTo}
 					/>
-					<MainInput
-						addItem={this.props.addItem}
-						activeDate={this.props.activeDate}
-						changeActiveDate={this.props.changeActiveDate}
-						scrollTo={this.scrollTo}
-					/>
+					{this.props.inputMode === 'journal' && (
+						<JournalInput
+							addItem={this.props.addItem}
+							activeDate={this.props.activeDate}
+							changeActiveDate={this.props.changeActiveDate}
+							scrollTo={this.scrollTo}
+							changeInputMode={this.props.changeInputMode}
+						/>
+					)}
+					{this.props.inputMode === 'search' && (
+						<SearchInput
+							searchText={this.props.searchText}
+							changeSearchText={this.props.changeSearchText}
+							changeInputMode={this.props.changeInputMode}
+						/>
+					)}
 					<Calendar
 						days={this.props.days}
 						activeDate={this.props.activeDate}
@@ -70,9 +82,11 @@ const mapState = (state) => ({
 	days: state.days,
 	items: state.items,
 	activeDate: state.activeDate,
+	inputMode: state.inputMode,
+	searchText: state.search,
 });
 
 export default connect(
 	mapState,
-	{ changeActiveDate, addItem, moveItem }
+	{ changeActiveDate, changeInputMode, changeSearchText, addItem, moveItem }
 )(App);

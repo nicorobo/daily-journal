@@ -1,4 +1,12 @@
-import { ADD_ITEM, DELETE_ITEM, MOVE_ITEM, ADD_DAY, CHANGE_ACTIVE_DATE } from './actionTypes';
+import {
+	ADD_ITEM,
+	DELETE_ITEM,
+	MOVE_ITEM,
+	ADD_DAY,
+	CHANGE_ACTIVE_DATE,
+	CHANGE_INPUT_MODE,
+	CHANGE_SEARCH_TEXT,
+} from './actionTypes';
 import dayjs from 'dayjs';
 import uniqid from 'uniqid';
 
@@ -47,4 +55,18 @@ export const changeActiveDate = (date = dayjs().format('YYYY-MM-DD')) => ({
 export const moveItem = (destination, source) => ({
 	type: MOVE_ITEM,
 	data: { destination, source },
+});
+
+export const changeInputMode = (mode) => ({
+	type: CHANGE_INPUT_MODE,
+	data: {
+		mode,
+	},
+});
+
+export const changeSearchText = (text) => ({
+	type: CHANGE_SEARCH_TEXT,
+	data: {
+		text,
+	},
 });
