@@ -8,7 +8,7 @@ const Container = styled.div`
 	font-size: 0.9rem;
 	color: #333;
 	.item-content {
-		word-break: break-all;
+		word-break: break-word;
 	}
 	.item-delete {
 		visibility: hidden;
